@@ -2,7 +2,7 @@
 
 This serves as a template for making a weather web application in ASP.NET Core MVC. 
 It should be used primarily as a startup to get an easy API going.
-This application uses OpenWeatcher as the api's end-point
+This application uses OpenWeather as the api's end-point
 
 # How to get running
 - Clone repo
