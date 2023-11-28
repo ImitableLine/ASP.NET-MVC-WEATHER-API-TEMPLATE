@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Weather Page";
+}
+
+<div class="inputBox">
+    <input type="text" id="location-input" onchange="getWeather()" placeholder="Enter location" />
+</div>
+
+<div id="weather-container">
+
+    <div class="weather-aspect location">
+        <p><span id="current-location"></span></p>
+    </div>
+
+    <div class="weather-aspect weather-type">
+        <p><span id="weather-type"></span></p>
+    </div>
+
+    <div class="weather-aspect temperature">
+        <p><span id="temperature"></span></p>
+    </div>
+
+    <div class="weather-aspect precipitation">
+        <p><span id="precipitation"></span></p>
+    </div>
+
+</div>
+
+<script>
+    function getWeather() {
+        var locationInput = document.getElementById('location-input');
+        var location = locationInput.value;
+
+        $.ajax({
+            url: '/Weather/GetWeather',
+            type: 'GET',
+            data: { location: location },
+            success: function (data) {
+                // Parse the weather data
+                var weatherData = JSON.parse(data);
+
+                // Convert temperature to Celsius
+                var temperatureCelsius = weatherData.main.temp - 273.15;
+
+                // Update the UI with the weather information
+                $('#current-location').text(location);
+                $('#temperature').text(temperatureCelsius.toFixed(2) + ' °C');
+                $('#weather-type').text(weatherData.weather[0].description);
+                $('#precipitation').text(weatherData.rain ? weatherData.rain['1h'] + ' mm' : 'N/A');
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+</script>
