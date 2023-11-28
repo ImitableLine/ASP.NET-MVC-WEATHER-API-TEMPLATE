@@ -19,7 +19,7 @@ public class WeatherController : Controller
     [HttpGet]
     public async Task<IActionResult> GetWeather(string location)
     {
-        string apiKey = "0d5dc38d0176cef1cc4690413d0a2778";
+        string apiKey = "";
         string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={apiKey}";
 
         using (HttpClient client = _httpClientFactory.CreateClient())
